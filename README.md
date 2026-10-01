@@ -695,3 +695,122 @@ The application demonstrates the use of:
 * Operational insight generation
 
 The project converts raw driver, trip, activity, and zone data into metrics that can support operational analysis and decision-making.
+
+
+# Test Cases
+
+| TC ID | Test Scenario              | Input / Condition                                      | Expected Result                                                                                   |
+| ----- | -------------------------- | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------- |
+| TC01  | Upload all valid CSV files | Valid Drivers, Trips and Activity CSVs                 | Dashboard loads successfully                                                                      |
+| TC02  | Missing Drivers file       | Trips and Activity uploaded, Drivers missing           | Application displays an error asking for all required files                                       |
+| TC03  | Missing Trips file         | Drivers and Activity uploaded, Trips missing           | Application displays an upload validation error                                                   |
+| TC04  | Missing Activity file      | Drivers and Trips uploaded, Activity missing           | Application displays an upload validation error                                                   |
+| TC05  | Valid driver search        | Search using an existing driver ID                     | Matching driver profile is returned                                                               |
+| TC06  | Invalid driver search      | Search using a non-existing driver ID                  | `Driver not found` message is displayed                                                           |
+| TC07  | Valid trip search          | Search using an existing trip ID                       | Matching trip information is returned                                                             |
+| TC08  | Invalid trip search        | Search using a non-existing trip ID                    | `Trip not found` message is displayed                                                             |
+| TC09  | Valid zone search          | Search using an existing zone                          | Matching zone information is returned                                                             |
+| TC10  | Invalid zone search        | Search using a non-existing zone                       | `Zone not found` message is displayed                                                             |
+| TC11  | Completed trip calculation | Dataset contains completed and non-completed trips     | Only completed trips are included in completed-trip metrics                                       |
+| TC12  | Cancellation rate          | Dataset contains cancelled trips                       | Cancellation rate is calculated as cancelled trips divided by total trips                         |
+| TC13  | Driver utilization         | Driver has online, busy and idle activity records      | Online, busy, idle hours and utilization are calculated                                           |
+| TC14  | Driver with no activity    | Driver has no activity records                         | Utilization result is zero / unavailable according to the dashboard handling                      |
+| TC15  | Multiple activity records  | Driver has several timestamped activity states         | Records are processed chronologically and durations are calculated between consecutive timestamps |
+| TC16  | Driver ranking             | Multiple drivers have different completed-trip counts  | Drivers are ranked according to completed trips                                                   |
+| TC17  | Revenue ranking            | Multiple drivers have different completed-trip revenue | Drivers are ranked according to revenue                                                           |
+| TC18  | Cancellation analysis      | Dataset contains cancellations with different reasons  | Cancellation metrics can be grouped by cancellation reason                                        |
+| TC19  | Demand analysis            | Trips occur across different time slots and zones      | Demand can be analyzed by time and zone                                                           |
+| TC20  | Empty dataset              | CSV contains headers but no records                    | Dashboard handles zero records without crashing and displays zero/empty analytical results        |
+
+
+# Final Business Insights
+
+The application combines trip, driver, zone, demand, cancellation, utilization, and anomaly analysis to generate operational insights dynamically from the uploaded dataset.
+
+The following are the key business insight categories produced by the system:
+
+### 1. Driver Performance
+
+The system identifies drivers with high completed-trip volumes and highlights differences in driver productivity.
+
+**Business use:** Operations teams can use this information to understand driver performance and identify patterns in trip completion.
+
+---
+
+### 2. Driver Revenue Contribution
+
+Driver-level revenue analysis identifies drivers contributing higher total trip revenue.
+
+**Business use:** This helps operations teams understand how revenue is distributed across the driver base and identify high-contribution driver segments.
+
+---
+
+### 3. Driver Utilization
+
+The application calculates online, busy, and idle hours and derives utilization from driver activity records.
+
+**Business use:** A high idle proportion may indicate periods where driver supply exceeds observed demand, while high busy time may indicate stronger demand relative to available driver capacity.
+
+---
+
+### 4. High-Demand Zones
+
+Zone-level demand analysis identifies zones with higher concentrations of trip requests or trips.
+
+**Business use:** High-demand zones can be monitored for supply-demand imbalance and may require closer operational attention during peak periods.
+
+---
+
+### 5. Cancellation Patterns
+
+The system analyzes cancellations by dimensions such as:
+
+* Cancellation reason
+* Zone
+* Driver
+* Time
+
+**Business use:** Concentrated cancellations can help operations teams investigate whether particular locations, time periods, or cancellation reasons require further analysis.
+
+---
+
+### 6. Peak Demand Periods
+
+Time-slot analysis identifies periods with higher trip activity.
+
+**Business use:** Understanding peak periods can support operational planning, including driver availability and capacity management.
+
+---
+
+### 7. Operational Anomalies
+
+The anomaly detection component identifies potentially unusual patterns in the available mobility data.
+
+**Business use:** These records can be reviewed by operations teams as candidates for further investigation rather than being treated automatically as confirmed incidents.
+
+---
+
+## Overall Business Value
+
+The application brings multiple operational dimensions into a single dashboard:
+
+```text
+Driver Performance
+        +
+Trip Performance
+        +
+Demand
+        +
+Zone Performance
+        +
+Cancellations
+        +
+Utilization
+        +
+Anomalies
+        ↓
+Operational Insights
+```
+
+This provides an analytical starting point for understanding mobility operations and identifying areas that may require deeper investigation.
+
