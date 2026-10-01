@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Mobility Intelligence</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            font-family:
+                Inter,
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #f4f7fb;
+
+            color: #172033;
+        }
+
+
+        /* =========================
+           MAIN LAYOUT
+        ========================= */
+
+        .page {
+
+            min-height: 100vh;
+
+            display: flex;
+        }
+
+
+        /* =========================
+           LEFT PANEL
+        ========================= */
+
+        .left-panel {
+
+            width: 42%;
+
+            min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #111827,
+                    #172554
+                );
+
+            color: white;
+
+            padding: 55px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: space-between;
+        }
+
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+        }
+
+
+        .brand-icon {
+
+            width: 42px;
+
+            height: 42px;
+
+            border-radius: 12px;
+
+            background: #3b82f6;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 21px;
+
+            font-weight: bold;
+        }
+
+
+        .brand-name {
+
+            font-size: 18px;
+
+            font-weight: 700;
+
+            letter-spacing: 0.3px;
+        }
+
+
+        .hero {
+
+            max-width: 520px;
+        }
+
+
+        .hero-label {
+
+            display: inline-block;
+
+            padding: 7px 12px;
+
+            border-radius: 20px;
+
+            background: rgba(
+                59,
+                130,
+                246,
+                0.15
+            );
+
+            color: #93c5fd;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            letter-spacing: 1px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 20px;
+        }
+
+
+        .hero h1 {
+
+            font-size: 46px;
+
+            line-height: 1.08;
+
+            margin: 0 0 20px;
+
+            letter-spacing: -1.5px;
+        }
+
+
+        .hero h1 span {
+
+            color: #60a5fa;
+        }
+
+
+        .hero p {
+
+            font-size: 17px;
+
+            line-height: 1.7;
+
+            color: #cbd5e1;
+
+            margin: 0;
+        }
+
+
+        .features {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 12px;
+
+            margin-top: 35px;
+        }
+
+
+        .feature {
+
+            padding: 16px;
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.08
+                );
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.04
+                );
+
+            border-radius: 10px;
+        }
+
+
+        .feature-title {
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            margin-bottom: 5px;
+        }
+
+
+        .feature-text {
+
+            font-size: 12px;
+
+            color: #94a3b8;
+        }
+
+
+        .left-footer {
+
+            font-size: 12px;
+
+            color: #64748b;
+        }
+
+
+        /* =========================
+           RIGHT PANEL
+        ========================= */
+
+        .right-panel {
+
+            width: 58%;
+
+            padding: 45px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+
+        .upload-container {
+
+            width: 100%;
+
+            max-width: 680px;
+        }
+
+
+        .upload-header {
+
+            margin-bottom: 30px;
+        }
+
+
+        .upload-header h2 {
+
+            margin: 0 0 8px;
+
+            font-size: 28px;
+
+            letter-spacing: -0.5px;
+        }
+
+
+        .upload-header p {
+
+            margin: 0;
+
+            color: #64748b;
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================
+           ERROR BOX
+        ========================= */
+
+        .error-box {
+
+            background: #fff7ed;
+
+            border:
+                1px solid
+                #fed7aa;
+
+            border-left:
+                4px solid
+                #f97316;
+
+            border-radius: 10px;
+
+            padding: 16px 18px;
+
+            margin-bottom: 22px;
+        }
+
+
+        .error-title {
+
+            color: #c2410c;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            margin-bottom: 8px;
+        }
+
+
+        .error-box ul {
+
+            margin: 0;
+
+            padding-left: 20px;
+
+            color: #7c2d12;
+
+            font-size: 13px;
+
+            line-height: 1.7;
+        }
+
+
+        /* =========================
+           UPLOAD CARD
+        ========================= */
+
+        .upload-card {
+
+            background: white;
+
+            border:
+                1px solid
+                #e2e8f0;
+
+            border-radius: 16px;
+
+            padding: 28px;
+
+            box-shadow:
+                0 10px 35px
+                rgba(
+                    15,
+                    23,
+                    42,
+                    0.07
+                );
+        }
+
+
+        .file-row {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            padding: 18px;
+
+            border:
+                1px solid
+                #e5e7eb;
+
+            border-radius: 12px;
+
+            margin-bottom: 14px;
+
+            transition: 0.2s;
+        }
+
+
+        .file-row:hover {
+
+            border-color: #93c5fd;
+
+            background: #f8fbff;
+        }
+
+
+        .file-info {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+            min-width: 0;
+        }
+
+
+        .file-icon {
+
+            width: 44px;
+
+            height: 44px;
+
+            flex-shrink: 0;
+
+            border-radius: 10px;
+
+            background: #eff6ff;
+
+            color: #2563eb;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 20px;
+        }
+
+
+        .file-name {
+
+            font-weight: 700;
+
+            font-size: 14px;
+
+            margin-bottom: 4px;
+        }
+
+
+        .file-description {
+
+            color: #94a3b8;
+
+            font-size: 12px;
+        }
+
+
+        .file-input {
+
+            max-width: 220px;
+
+            font-size: 12px;
+
+            color: #475569;
+        }
+
+
+        .file-input::file-selector-button {
+
+            border: 0;
+
+            background: #eff6ff;
+
+            color: #2563eb;
+
+            padding: 8px 12px;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            font-weight: 600;
+
+            margin-right: 8px;
+        }
+
+
+        /* =========================
+           CTA
+        ========================= */
+
+        .analyze-button {
+
+            width: 100%;
+
+            border: none;
+
+            border-radius: 10px;
+
+            padding: 15px;
+
+            margin-top: 12px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #1d4ed8
+                );
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+
+            box-shadow:
+                0 6px 18px
+                rgba(
+                    37,
+                    99,
+                    235,
+                    0.25
+                );
+        }
+
+
+        .analyze-button:hover {
+
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 9px 22px
+                rgba(
+                    37,
+                    99,
+                    235,
+                    0.32
+                );
+        }
+
+
+        /* =========================
+           DATA REQUIREMENTS
+        ========================= */
+
+        .requirements {
+
+            margin-top: 25px;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    3,
+                    1fr
+                );
+
+            gap: 10px;
+        }
+
+
+        .requirement {
+
+            background: #f8fafc;
+
+            border-radius: 9px;
+
+            padding: 13px;
+
+            font-size: 11px;
+
+            color: #64748b;
+
+            line-height: 1.5;
+        }
+
+
+        .requirement strong {
+
+            display: block;
+
+            color: #334155;
+
+            margin-bottom: 3px;
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 950px) {
+
+            .page {
+
+                flex-direction: column;
+            }
+
+
+            .left-panel,
+            .right-panel {
+
+                width: 100%;
+            }
+
+
+            .left-panel {
+
+                min-height: auto;
+
+                padding: 35px;
+            }
+
+
+            .hero {
+
+                margin-top: 60px;
+
+                margin-bottom: 40px;
+            }
+
+
+            .hero h1 {
+
+                font-size: 38px;
+            }
+
+
+            .right-panel {
+
+                padding: 30px;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .file-row {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+            }
+
+
+            .file-input {
+
+                max-width: 100%;
+
+                width: 100%;
+            }
+
+
+            .requirements {
+
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="page">
+
+
+    <!-- =========================
+         LEFT SIDE
+    ========================== -->
+
+    <section class="left-panel">
+
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                M
+            </div>
+
+            <div class="brand-name">
+                Mobility Intelligence
+            </div>
+
+        </div>
+
+
+        <div class="hero">
+
+            <div class="hero-label">
+                Operations Analytics
+            </div>
+
+
+            <h1>
+
+                Turn mobility data into
+                <span>operational insight.</span>
+
+            </h1>
+
+
+            <p>
+
+                Analyze drivers, trips, zones,
+                cancellations and utilization
+                through one centralized intelligence
+                platform.
+
+            </p>
+
+
+            <div class="features">
+
+
+                <div class="feature">
+
+                    <div class="feature-title">
+                        Driver Intelligence
+                    </div>
+
+                    <div class="feature-text">
+                        Performance, revenue and
+                        utilization analysis.
+                    </div>
+
+                </div>
+
+
+                <div class="feature">
+
+                    <div class="feature-title">
+                        Trip Analytics
+                    </div>
+
+                    <div class="feature-text">
+                        Completion, cancellation
+                        and revenue metrics.
+                    </div>
+
+                </div>
+
+
+                <div class="feature">
+
+                    <div class="feature-title">
+                        Zone Intelligence
+                    </div>
+
+                    <div class="feature-text">
+                        Demand and operational
+                        performance by zone.
+                    </div>
+
+                </div>
+
+
+                <div class="feature">
+
+                    <div class="feature-title">
+                        Anomaly Detection
+                    </div>
+
+                    <div class="feature-text">
+                        Identify suspicious and
+                        invalid trip records.
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+        <div class="left-footer">
+
+            Mobility Operations Intelligence Engine
+            · Data Analyst Capstone
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =========================
+         RIGHT SIDE
+    ========================== -->
+
+    <section class="right-panel">
+
+
+        <div class="upload-container">
+
+
+            <div class="upload-header">
+
+                <h2>
+                    Analyze your mobility data
+                </h2>
+
+                <p>
+
+                    Upload the three required CSV
+                    datasets to generate the operations
+                    intelligence dashboard.
+
+                </p>
+
+            </div>
+
+
+
+            <!-- VALIDATION ERRORS -->
+
+            {% if errors %}
+
+            <div class="error-box">
+
+                <div class="error-title">
+
+                    ⚠ Data validation issues detected
+
+                </div>
+
+
+                <ul>
+
+                    {% for error in errors %}
+
+                    <li>
+                        {{ error }}
+                    </li>
+
+                    {% endfor %}
+
+                </ul>
+
+            </div>
+
+            {% endif %}
+
+
+
+            <!-- UPLOAD CARD -->
+
+            <form
+                action="/upload"
+                method="POST"
+                enctype="multipart/form-data"
+            >
+
+
+                <div class="upload-card">
+
+
+                    <!-- DRIVERS -->
+
+                    <div class="file-row">
+
+                        <div class="file-info">
+
+                            <div class="file-icon">
+                                🚗
+                            </div>
+
+
+                            <div>
+
+                                <div class="file-name">
+                                    Drivers
+                                </div>
+
+                                <div class="file-description">
+
+                                    Driver profiles,
+                                    ratings and status
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <input
+                            class="file-input"
+                            type="file"
+                            name="drivers_file"
+                            accept=".csv"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- TRIPS -->
+
+                    <div class="file-row">
+
+                        <div class="file-info">
+
+                            <div class="file-icon">
+                                📍
+                            </div>
+
+
+                            <div>
+
+                                <div class="file-name">
+                                    Trips
+                                </div>
+
+                                <div class="file-description">
+
+                                    Trip requests,
+                                    fares and outcomes
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <input
+                            class="file-input"
+                            type="file"
+                            name="trips_file"
+                            accept=".csv"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- ACTIVITY -->
+
+                    <div class="file-row">
+
+                        <div class="file-info">
+
+                            <div class="file-icon">
+                                ⏱
+                            </div>
+
+
+                            <div>
+
+                                <div class="file-name">
+                                    Driver Activity
+                                </div>
+
+                                <div class="file-description">
+
+                                    Online, busy and
+                                    idle activity
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <input
+                            class="file-input"
+                            type="file"
+                            name="activity_file"
+                            accept=".csv"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <button
+                        class="analyze-button"
+                        type="submit"
+                    >
+
+                        Analyze Mobility Data
+                        →
+                        
+                    </button>
+
+
+                    <!-- REQUIREMENTS -->
+
+                    <div class="requirements">
+
+
+                        <div class="requirement">
+
+                            <strong>
+                                Drivers.csv
+                            </strong>
+
+                            driver_id · name · city ·
+                            rating · status
+
+                        </div>
+
+
+                        <div class="requirement">
+
+                            <strong>
+                                Trips.csv
+                            </strong>
+
+                            trip_id · driver_id ·
+                            fare · status · timestamps
+
+                        </div>
+
+
+                        <div class="requirement">
+
+                            <strong>
+                                Activity.csv
+                            </strong>
+
+                            driver_id · timestamp ·
+                            activity status
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+            </form>
+
+
+        </div>
+
+    </section>
+
+
+</div>
+
+
+</body>
+
+</html>

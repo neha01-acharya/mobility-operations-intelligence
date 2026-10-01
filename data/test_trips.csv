@@ -1,0 +1,4 @@
+trip_id,driver_id,rider_id,city,pickup_zone,drop_zone,request_time,pickup_time,drop_time,distance_km,fare,status,cancellation_reason
+T001,D001,R001,Bangalore,Indiranagar,Whitefield,2023-10-01T09:00:00,2023-10-01T09:10:00,2023-10-01T09:40:00,12.5,350,completed,
+T002,D002,R002,Mumbai,Andheri,Bandra,2023-10-01T10:00:00,,,0,0,cancelled,customer_cancelled
+T003,D003,R003,Delhi,Saket,Gurgaon,2023-10-01T11:00:00,2023-10-01T11:05:00,2023-10-01T11:35:00,10,280,completed,

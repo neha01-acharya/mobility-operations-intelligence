@@ -1,0 +1,1779 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mobility Operations Intelligence</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #172033;
+        }
+
+        .page {
+            max-width: 1400px;
+            margin: auto;
+            padding: 35px 45px;
+        }
+
+        /* HEADER */
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .brand h1 {
+            font-size: 28px;
+            margin-bottom: 6px;
+        }
+
+        .brand p {
+            color: #697386;
+            font-size: 14px;
+        }
+
+        .back-button {
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            border: 1px solid #d9dee8;
+            background: white;
+            color: #273043;
+            font-size: 14px;
+        }
+
+        .back-button:hover {
+            background: #f0f2f6;
+        }
+
+        /* VALIDATION */
+
+        .validation-box {
+            background: #fff4e5;
+            border: 1px solid #f0c36d;
+            border-radius: 10px;
+            padding: 18px 20px;
+            margin-bottom: 28px;
+        }
+
+        .validation-box h3 {
+            color: #9a6100;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+
+        .validation-box ul {
+            margin-left: 20px;
+            color: #725000;
+        }
+
+        .validation-box li {
+            margin-bottom: 5px;
+            font-size: 13px;
+        }
+
+        /* KPI */
+
+        .section-title {
+            margin-bottom: 16px;
+        }
+
+        .section-title h2 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .section-title p {
+            font-size: 13px;
+            color: #7a8394;
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 35px;
+        }
+
+        .kpi-card {
+            background: white;
+            border: 1px solid #e2e6ee;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .kpi-label {
+            color: #7a8394;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .kpi-value {
+            font-size: 25px;
+            font-weight: 700;
+        }
+
+        .kpi-sub {
+            margin-top: 7px;
+            color: #8a92a2;
+            font-size: 12px;
+        }
+
+        /* ANALYTICS PANEL */
+
+        .analytics-panel {
+            background: white;
+            border: 1px solid #e0e5ed;
+            border-radius: 14px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .analytics-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 22px;
+        }
+
+        .analytics-tab {
+            border: 1px solid #d8dde7;
+            background: #f8f9fc;
+            padding: 11px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #4b5567;
+        }
+
+        .analytics-tab:hover {
+            background: #eef1f6;
+        }
+
+        .analytics-tab.active {
+            background: #172033;
+            color: white;
+            border-color: #172033;
+        }
+
+        .selector-row {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 18px;
+            align-items: end;
+        }
+
+        .selector-group label {
+            display: block;
+            font-size: 12px;
+            color: #687386;
+            margin-bottom: 7px;
+        }
+
+        select {
+            width: 100%;
+            padding: 11px 13px;
+            border-radius: 8px;
+            border: 1px solid #d5dae4;
+            background: white;
+            font-size: 14px;
+            color: #273043;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #596579;
+        }
+
+        /* RESULTS */
+
+        .results-container {
+            margin-top: 25px;
+        }
+
+        .result-section {
+            display: none;
+        }
+
+        .result-section.active {
+            display: block;
+        }
+
+        .result-header {
+            margin-bottom: 18px;
+        }
+
+        .result-header h3 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .result-header p {
+            color: #7a8394;
+            font-size: 13px;
+        }
+
+        /* TABLE */
+
+        .table-wrapper {
+            overflow-x: auto;
+            border: 1px solid #e1e5ec;
+            border-radius: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th {
+            background: #f7f8fb;
+            color: #667085;
+            font-size: 12px;
+            font-weight: 600;
+            text-align: left;
+            padding: 13px 15px;
+            border-bottom: 1px solid #e1e5ec;
+        }
+
+        td {
+            padding: 13px 15px;
+            font-size: 13px;
+            border-bottom: 1px solid #edf0f4;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: #fafbfc;
+        }
+
+        /* SUMMARY CARDS */
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .summary-card {
+            border: 1px solid #e1e5ec;
+            border-radius: 10px;
+            padding: 18px;
+            background: #fafbfc;
+        }
+
+        .summary-card span {
+            display: block;
+            color: #7a8394;
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+
+        .summary-card strong {
+            font-size: 21px;
+        }
+
+        /* TWO COLUMN */
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        /* EMPTY */
+
+        .empty-result {
+            padding: 45px;
+            text-align: center;
+            border: 1px dashed #ccd2dc;
+            border-radius: 10px;
+            color: #7a8394;
+            font-size: 14px;
+        }
+
+        /* BADGES */
+
+        .badge {
+            display: inline-block;
+            padding: 4px 9px;
+            border-radius: 20px;
+            background: #eef1f5;
+            font-size: 11px;
+        }
+
+        .danger {
+            color: #a33a3a;
+            background: #fceeee;
+        }
+
+        .success {
+            color: #26734d;
+            background: #eaf7ef;
+        }
+
+        /* FOOTER */
+
+        .footer {
+            text-align: center;
+            color: #9aa1af;
+            font-size: 12px;
+            padding: 20px;
+        }
+
+        @media (max-width: 1000px) {
+
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .summary-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 700px) {
+
+            .page {
+                padding: 20px;
+            }
+
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .selector-row {
+                grid-template-columns: 1fr;
+            }
+
+            .analytics-tabs {
+                flex-direction: column;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+<div class="page">
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <div class="brand">
+
+            <h1>Mobility Operations Intelligence</h1>
+
+            <p>
+                Analyze drivers, trips, zones, utilization and operational anomalies.
+            </p>
+
+        </div>
+
+        <a href="/" class="back-button">
+            ← Upload New Dataset
+        </a>
+
+    </div>
+
+
+    <!-- VALIDATION -->
+
+    {% if errors %}
+
+    <div class="validation-box">
+
+        <h3>Data Validation Issues</h3>
+
+        <ul>
+
+            {% for error in errors %}
+
+            <li>{{ error }}</li>
+
+            {% endfor %}
+
+        </ul>
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- OVERVIEW -->
+
+    <div class="section-title">
+
+        <h2>Operations Overview</h2>
+
+        <p>
+            High-level metrics from the uploaded mobility dataset.
+        </p>
+
+    </div>
+
+
+    <div class="kpi-grid">
+
+        <div class="kpi-card">
+
+            <div class="kpi-label">
+                Total Drivers
+            </div>
+
+            <div class="kpi-value">
+                {{ total_drivers }}
+            </div>
+
+            <div class="kpi-sub">
+                Drivers in dataset
+            </div>
+
+        </div>
+
+
+        <div class="kpi-card">
+
+            <div class="kpi-label">
+                Active Drivers
+            </div>
+
+            <div class="kpi-value">
+                {{ active_drivers }}
+            </div>
+
+            <div class="kpi-sub">
+                Currently active
+            </div>
+
+        </div>
+
+
+        <div class="kpi-card">
+
+            <div class="kpi-label">
+                Total Riders
+            </div>
+
+            <div class="kpi-value">
+                {{ total_riders }}
+            </div>
+
+            <div class="kpi-sub">
+                Unique riders
+            </div>
+
+        </div>
+
+
+        <div class="kpi-card">
+
+            <div class="kpi-label">
+                Total Trips
+            </div>
+
+            <div class="kpi-value">
+                {{ trip_summary.total_trips }}
+            </div>
+
+            <div class="kpi-sub">
+                All trip requests
+            </div>
+
+        </div>
+
+
+        <div class="kpi-card">
+
+            <div class="kpi-label">
+                Completed Trips
+            </div>
+
+            <div class="kpi-value">
+                {{ trip_summary.completed_trips }}
+            </div>
+
+            <div class="kpi-sub">
+                Successfully completed
+            </div>
+
+        </div>
+
+
+        <div class="kpi-card">
+
+            <div class="kpi-label">
+                Completion Rate
+            </div>
+
+            <div class="kpi-value">
+                {{ "%.2f"|format(trip_summary.completion_rate) }}%
+            </div>
+
+            <div class="kpi-sub">
+                Completed / total trips
+            </div>
+
+        </div>
+
+
+        <div class="kpi-card">
+
+            <div class="kpi-label">
+                Cancellation Rate
+            </div>
+
+            <div class="kpi-value">
+                {{ "%.2f"|format(trip_summary.cancellation_rate) }}%
+            </div>
+
+            <div class="kpi-sub">
+                Cancelled / total trips
+            </div>
+
+        </div>
+
+
+        <div class="kpi-card">
+
+            <div class="kpi-label">
+                Total Revenue
+            </div>
+
+            <div class="kpi-value">
+                ₹{{ "%.2f"|format(trip_summary.total_revenue) }}
+            </div>
+
+            <div class="kpi-sub">
+                From completed trips
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ANALYTICS -->
+
+    <div class="analytics-panel">
+
+        <div class="section-title">
+
+            <h2>Analytics</h2>
+
+            <p>
+                Select an analytics category and choose the analysis you want to explore.
+            </p>
+
+        </div>
+
+
+        <!-- MAIN ANALYTICS CATEGORY -->
+
+        <div class="analytics-tabs">
+
+            <button
+                class="analytics-tab active"
+                onclick="selectCategory('driver', this)">
+                Driver Analytics
+            </button>
+
+            <button
+                class="analytics-tab"
+                onclick="selectCategory('trip', this)">
+                Trip Analytics
+            </button>
+
+            <button
+                class="analytics-tab"
+                onclick="selectCategory('zone', this)">
+                Zone Analytics
+            </button>
+
+        </div>
+
+
+        <!-- ANALYSIS SELECTOR -->
+
+        <div class="selector-row">
+
+            <div class="selector-group">
+
+                <label for="analysisSelect">
+                    Select Analysis
+                </label>
+
+                <select
+                    id="analysisSelect"
+                    onchange="showAnalysis(this.value)">
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <!-- RESULTS -->
+
+        <div class="results-container">
+
+
+            <!-- ================= DRIVER ANALYTICS ================= -->
+
+            <div
+                id="driver_completed"
+                class="result-section">
+
+                <div class="result-header">
+
+                    <h3>Top Drivers by Completed Trips</h3>
+
+                    <p>
+                        Drivers with the highest number of completed trips.
+                    </p>
+
+                </div>
+
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                        <tr>
+                            <th>Rank</th>
+                            <th>Driver ID</th>
+                            <th>Completed Trips</th>
+                        </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                        {% for driver in top_drivers %}
+
+                        <tr>
+
+                            <td>{{ loop.index }}</td>
+
+                            <td>
+                                <a href="/driver/{{ driver[1] }}">
+                                    {{ driver[1] }}
+                                </a>
+                            </td>
+
+                            <td>{{ driver[0] }}</td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+            <!-- DRIVER REVENUE -->
+
+            <div
+                id="driver_revenue"
+                class="result-section">
+
+                <div class="result-header">
+
+                    <h3>Top Drivers by Revenue</h3>
+
+                    <p>
+                        Drivers generating the highest revenue from completed trips.
+                    </p>
+
+                </div>
+
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                        <tr>
+                            <th>Rank</th>
+                            <th>Driver ID</th>
+                            <th>Revenue</th>
+                        </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                        {% for driver in top_revenue_drivers %}
+
+                        <tr>
+
+                            <td>{{ loop.index }}</td>
+
+                            <td>
+                                <a href="/driver/{{ driver[1] }}">
+                                    {{ driver[1] }}
+                                </a>
+                            </td>
+
+                            <td>
+                                ₹{{ "%.2f"|format(driver[0]) }}
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+            <!-- DRIVER UTILIZATION -->
+
+            <div
+                id="driver_utilization"
+                class="result-section">
+
+                <div class="result-header">
+
+                    <h3>Driver Utilization</h3>
+
+                    <p>
+                        Online, busy and idle hours for drivers with activity records.
+                    </p>
+
+                </div>
+
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                        <tr>
+                            <th>Driver ID</th>
+                            <th>Online Hours</th>
+                            <th>Busy Hours</th>
+                            <th>Idle Hours</th>
+                            <th>Utilization</th>
+                        </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                        {% for item in utilization %}
+
+                        <tr>
+
+                            <td>{{ item.driver_id }}</td>
+
+                            <td>
+                                {{ "%.2f"|format(item.online_hours) }}
+                            </td>
+
+                            <td>
+                                {{ "%.2f"|format(item.busy_hours) }}
+                            </td>
+
+                            <td>
+                                {{ "%.2f"|format(item.idle_hours) }}
+                            </td>
+
+                            <td>
+                                {{ "%.2f"|format(item.utilization) }}%
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= TRIP ANALYTICS ================= -->
+
+            <div
+                id="trip_summary"
+                class="result-section">
+
+                <div class="result-header">
+
+                    <h3>Trip Performance</h3>
+
+                    <p>
+                        Overall trip activity and performance metrics.
+                    </p>
+
+                </div>
+
+
+                <div class="summary-grid">
+
+                    <div class="summary-card">
+                        <span>Total Trips</span>
+                        <strong>
+                            {{ trip_summary.total_trips }}
+                        </strong>
+                    </div>
+
+                    <div class="summary-card">
+                        <span>Completed Trips</span>
+                        <strong>
+                            {{ trip_summary.completed_trips }}
+                        </strong>
+                    </div>
+
+                    <div class="summary-card">
+                        <span>Cancelled Trips</span>
+                        <strong>
+                            {{ trip_summary.cancelled_trips }}
+                        </strong>
+                    </div>
+
+                    <div class="summary-card">
+                        <span>Completion Rate</span>
+                        <strong>
+                            {{ "%.2f"|format(trip_summary.completion_rate) }}%
+                        </strong>
+                    </div>
+
+                    <div class="summary-card">
+                        <span>Cancellation Rate</span>
+                        <strong>
+                            {{ "%.2f"|format(trip_summary.cancellation_rate) }}%
+                        </strong>
+                    </div>
+
+                    <div class="summary-card">
+                        <span>Total Revenue</span>
+                        <strong>
+                            ₹{{ "%.2f"|format(trip_summary.total_revenue) }}
+                        </strong>
+                    </div>
+
+                    <div class="summary-card">
+                        <span>Average Fare</span>
+                        <strong>
+                            ₹{{ "%.2f"|format(trip_summary.average_fare) }}
+                        </strong>
+                    </div>
+
+                    <div class="summary-card">
+                        <span>Average Distance</span>
+                        <strong>
+                            {{ "%.2f"|format(trip_summary.average_distance) }} km
+                        </strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- TOP RIDERS -->
+
+            <div
+                id="trip_riders"
+                class="result-section">
+
+                <div class="result-header">
+
+                    <h3>Top Riders by Trip Count</h3>
+
+                    <p>
+                        Riders with the highest number of trip requests.
+                    </p>
+
+                </div>
+
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                        <tr>
+                            <th>Rank</th>
+                            <th>Rider ID</th>
+                            <th>Trips</th>
+                        </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                        {% for rider in top_riders %}
+
+                        <tr>
+
+                            <td>{{ loop.index }}</td>
+
+                            <td>{{ rider[1] }}</td>
+
+                            <td>{{ rider[0] }}</td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+            <!-- CANCELLATIONS -->
+
+            <div
+                id="trip_cancellation"
+                class="result-section">
+
+                <div class="result-header">
+
+                    <h3>Cancellation Intelligence</h3>
+
+                    <p>
+                        Understand where, why and when cancellations occur.
+                    </p>
+
+                </div>
+
+
+                <div class="two-column">
+
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+
+                            <tr>
+                                <th>Cancellation Reason</th>
+                                <th>Count</th>
+                            </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                            {% for reason, count in cancellation_by_reason.items() %}
+
+                            <tr>
+                                <td>{{ reason }}</td>
+                                <td>{{ count }}</td>
+                            </tr>
+
+                            {% endfor %}
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+
+                            <tr>
+                                <th>Time Slot</th>
+                                <th>Cancellations</th>
+                            </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                            {% for slot, count in cancellation_by_time.items() %}
+
+                            <tr>
+                                <td>{{ slot }}</td>
+                                <td>{{ count }}</td>
+                            </tr>
+
+                            {% endfor %}
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                </div>
+
+                <br>
+
+
+                <div class="two-column">
+
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+
+                            <tr>
+                                <th>Zone</th>
+                                <th>Cancellations</th>
+                            </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                            {% for zone, count in cancellation_by_zone.items() %}
+
+                            <tr>
+                                <td>{{ zone }}</td>
+                                <td>{{ count }}</td>
+                            </tr>
+
+                            {% endfor %}
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+
+                            <tr>
+                                <th>Driver ID</th>
+                                <th>Cancellations</th>
+                            </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                            {% for driver, count in cancellation_by_driver.items() %}
+
+                            <tr>
+                                <td>{{ driver }}</td>
+                                <td>{{ count }}</td>
+                            </tr>
+
+                            {% endfor %}
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <!-- ANOMALIES -->
+
+            <div
+                id="trip_anomalies"
+                class="result-section">
+
+                <div class="result-header">
+
+                    <h3>Trip Anomalies</h3>
+
+                    <p>
+                        Data quality and unusual trip records detected by the system.
+                    </p>
+
+                </div>
+
+
+                <div class="two-column">
+
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+
+                            <tr>
+                                <th>Anomaly Type</th>
+                                <th>Trips</th>
+                            </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                            <tr>
+                                <td>Zero Distance</td>
+                                <td>{{ anomalies.zero_distance|length }}</td>
+                            </tr>
+
+                            <tr>
+                                <td>Negative Fare</td>
+                                <td>{{ anomalies.negative_fare|length }}</td>
+                            </tr>
+
+                            <tr>
+                                <td>Invalid Duration</td>
+                                <td>{{ anomalies.invalid_duration|length }}</td>
+                            </tr>
+
+                            <tr>
+                                <td>Unknown Driver</td>
+                                <td>{{ anomalies.unknown_driver|length }}</td>
+                            </tr>
+
+                            <tr>
+                                <td>Long Duration</td>
+                                <td>{{ anomalies.long_duration|length }}</td>
+                            </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+
+                            <tr>
+                                <th>Anomaly Type</th>
+                                <th>Trip IDs</th>
+                            </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                            <tr>
+                                <td>Zero Distance</td>
+                                <td>
+                                    {{ anomalies.zero_distance|join(", ") }}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Negative Fare</td>
+                                <td>
+                                    {{ anomalies.negative_fare|join(", ") }}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Invalid Duration</td>
+                                <td>
+                                    {{ anomalies.invalid_duration|join(", ") }}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Unknown Driver</td>
+                                <td>
+                                    {{ anomalies.unknown_driver|join(", ") }}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Long Duration</td>
+                                <td>
+                                    {{ anomalies.long_duration|join(", ") }}
+                                </td>
+                            </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= ZONE ANALYTICS ================= -->
+
+            <div
+                id="zone_performance"
+                class="result-section">
+
+                <div class="result-header">
+
+                    <h3>Zone Performance</h3>
+
+                    <p>
+                        Trip performance and revenue across pickup zones.
+                    </p>
+
+                </div>
+
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                        <tr>
+                            <th>Zone</th>
+                            <th>Total Trips</th>
+                            <th>Completed</th>
+                            <th>Cancelled</th>
+                            <th>Completion Rate</th>
+                            <th>Cancellation Rate</th>
+                            <th>Revenue</th>
+                            <th>Average Fare</th>
+                        </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                        {% for zone in zones %}
+
+                        <tr>
+
+                            <td>{{ zone.zone }}</td>
+
+                            <td>{{ zone.total_trips }}</td>
+
+                            <td>{{ zone.completed_trips }}</td>
+
+                            <td>{{ zone.cancelled_trips }}</td>
+
+                            <td>
+                                {{ "%.2f"|format(zone.completion_rate) }}%
+                            </td>
+
+                            <td>
+                                {{ "%.2f"|format(zone.cancellation_rate) }}%
+                            </td>
+
+                            <td>
+                                ₹{{ "%.2f"|format(zone.total_revenue) }}
+                            </td>
+
+                            <td>
+                                ₹{{ "%.2f"|format(zone.average_fare) }}
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+            <!-- TOP ZONES -->
+
+            <div
+                id="zone_demand"
+                class="result-section">
+
+                <div class="result-header">
+
+                    <h3>Top Zones by Demand</h3>
+
+                    <p>
+                        Pickup zones receiving the highest number of trip requests.
+                    </p>
+
+                </div>
+
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                        <tr>
+                            <th>Rank</th>
+                            <th>Zone</th>
+                            <th>Trip Requests</th>
+                        </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                        {% for zone in top_zones %}
+
+                        <tr>
+
+                            <td>{{ loop.index }}</td>
+
+                            <td>{{ zone[1] }}</td>
+
+                            <td>{{ zone[0] }}</td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+            <!-- TOP CANCELLATION ZONES -->
+
+            <div
+                id="zone_cancellation"
+                class="result-section">
+
+                <div class="result-header">
+
+                    <h3>Top Zones by Cancellation</h3>
+
+                    <p>
+                        Zones with the highest number of cancelled trips.
+                    </p>
+
+                </div>
+
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                        <tr>
+                            <th>Rank</th>
+                            <th>Zone</th>
+                            <th>Cancellations</th>
+                        </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                        {% for zone in top_cancel_zones %}
+
+                        <tr>
+
+                            <td>{{ loop.index }}</td>
+
+                            <td>{{ zone[1] }}</td>
+
+                            <td>{{ zone[0] }}</td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+            <!-- DEMAND TIME -->
+
+            <div
+                id="zone_time"
+                class="result-section">
+
+                <div class="result-header">
+
+                    <h3>Demand by Time Slot</h3>
+
+                    <p>
+                        Distribution of trip requests across operating time periods.
+                    </p>
+
+                </div>
+
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                        <tr>
+                            <th>Time Slot</th>
+                            <th>Trip Requests</th>
+                        </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                        {% for slot, count in demand_by_time_slot.items() %}
+
+                        <tr>
+
+                            <td>{{ slot }}</td>
+
+                            <td>{{ count }}</td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+            <!-- ZONE + TIME -->
+
+            <div
+                id="zone_time_matrix"
+                class="result-section">
+
+                <div class="result-header">
+
+                    <h3>Zone Demand by Time</h3>
+
+                    <p>
+                        Compare demand patterns across zones and time periods.
+                    </p>
+
+                </div>
+
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                        <tr>
+
+                            <th>Zone</th>
+                            <th>06-09</th>
+                            <th>09-12</th>
+                            <th>12-15</th>
+                            <th>15-18</th>
+                            <th>18-21</th>
+                            <th>21-00</th>
+                            <th>00-06</th>
+
+                        </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                        {% for zone, slots in demand_by_zone_and_time.items() %}
+
+                        <tr>
+
+                            <td>{{ zone }}</td>
+
+                            <td>{{ slots["06-09"] }}</td>
+                            <td>{{ slots["09-12"] }}</td>
+                            <td>{{ slots["12-15"] }}</td>
+                            <td>{{ slots["15-18"] }}</td>
+                            <td>{{ slots["18-21"] }}</td>
+                            <td>{{ slots["21-00"] }}</td>
+                            <td>{{ slots["00-06"] }}</td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <div class="footer">
+        Mobility Operations Intelligence · Analytics Dashboard
+    </div>
+
+</div>
+
+
+<script>
+
+    /*
+        Each category has its own list of analyses.
+
+        When the user changes category:
+        1. We update the dropdown.
+        2. We show only the relevant analysis options.
+        3. We display the first analysis automatically.
+    */
+
+    const analysisOptions = {
+
+        driver: [
+            {
+                value: "driver_completed",
+                label: "Top Drivers by Completed Trips"
+            },
+            {
+                value: "driver_revenue",
+                label: "Top Drivers by Revenue"
+            },
+            {
+                value: "driver_utilization",
+                label: "Driver Utilization"
+            }
+        ],
+
+        trip: [
+            {
+                value: "trip_summary",
+                label: "Trip Performance"
+            },
+            {
+                value: "trip_riders",
+                label: "Top Riders by Trip Count"
+            },
+            {
+                value: "trip_cancellation",
+                label: "Cancellation Intelligence"
+            },
+            {
+                value: "trip_anomalies",
+                label: "Trip Anomalies"
+            }
+        ],
+
+        zone: [
+            {
+                value: "zone_performance",
+                label: "Zone Performance"
+            },
+            {
+                value: "zone_demand",
+                label: "Top Zones by Demand"
+            },
+            {
+                value: "zone_cancellation",
+                label: "Top Zones by Cancellation"
+            },
+            {
+                value: "zone_time",
+                label: "Demand by Time Slot"
+            },
+            {
+                value: "zone_time_matrix",
+                label: "Zone Demand by Time"
+            }
+        ]
+
+    };
+
+
+    function selectCategory(category, button) {
+
+        /*
+            Remove active state from all category buttons.
+        */
+
+        const buttons =
+            document.querySelectorAll(".analytics-tab");
+
+        buttons.forEach(function(btn) {
+            btn.classList.remove("active");
+        });
+
+
+        /*
+            Activate clicked category.
+        */
+
+        button.classList.add("active");
+
+
+        /*
+            Get dropdown.
+        */
+
+        const select =
+            document.getElementById("analysisSelect");
+
+
+        /*
+            Clear existing options.
+        */
+
+        select.innerHTML = "";
+
+
+        /*
+            Add options for selected category.
+        */
+
+        analysisOptions[category].forEach(function(option) {
+
+            const newOption =
+                document.createElement("option");
+
+            newOption.value = option.value;
+            newOption.textContent = option.label;
+
+            select.appendChild(newOption);
+
+        });
+
+
+        /*
+            Show first analysis automatically.
+        */
+
+        showAnalysis(
+            analysisOptions[category][0].value
+        );
+
+    }
+
+
+    function showAnalysis(sectionId) {
+
+        /*
+            Hide every result section.
+        */
+
+        const sections =
+            document.querySelectorAll(".result-section");
+
+        sections.forEach(function(section) {
+
+            section.classList.remove("active");
+
+        });
+
+
+        /*
+            Show selected result section.
+        */
+
+        const selectedSection =
+            document.getElementById(sectionId);
+
+        if (selectedSection) {
+
+            selectedSection.classList.add("active");
+
+        }
+
+    }
+
+
+    /*
+        Initial state:
+        Driver Analytics is selected.
+    */
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function() {
+
+            const firstButton =
+                document.querySelector(".analytics-tab");
+
+            selectCategory(
+                "driver",
+                firstButton
+            );
+
+        }
+    );
+
+</script>
+
+
+</body>
+
+</html>

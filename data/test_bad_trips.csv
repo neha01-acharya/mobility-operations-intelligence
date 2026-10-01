@@ -1,0 +1,2 @@
+trip_id,driver_id,rider_id,city,pickup_zone,drop_zone,request_time,pickup_time,drop_time,distance_km,fare,status,cancellation_reason
+T101,D999,R101,Bangalore,Indiranagar,Whitefield,2023-10-01T09:00:00,2023-10-01T09:10:00,2023-10-01T09:40:00,12.5,-350,completed,

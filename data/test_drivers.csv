@@ -1,0 +1,4 @@
+driver_id,driver_name,city,vehicle_type,rating,status
+D001,Rahul,Bangalore,Sedan,4.7,active
+D002,Priya,Mumbai,SUV,4.2,inactive
+D003,Amit,Delhi,Hatchback,4.5,active

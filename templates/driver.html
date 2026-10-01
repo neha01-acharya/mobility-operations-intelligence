@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Driver Profile</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #222;
+        }
+
+        .header {
+            background: #111827;
+            color: white;
+            padding: 20px 40px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 26px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 30px auto;
+        }
+
+        .back {
+            display: inline-block;
+            margin-bottom: 20px;
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: bold;
+        }
+
+        .profile-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
+        }
+
+        .profile-card h2 {
+            margin-top: 0;
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .info-box {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .label {
+            color: #6b7280;
+            font-size: 13px;
+            margin-bottom: 6px;
+        }
+
+        .value {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .metric-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .metric-title {
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .metric-value {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 800px) {
+            .profile-grid,
+            .metrics {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .profile-grid,
+            .metrics {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <h1>Mobility Operations Intelligence</h1>
+    </div>
+
+    <div class="container">
+
+        <a href="/dashboard" class="back">
+            ← Back to Dashboard
+        </a>
+
+        {% if profile %}
+
+        <div class="profile-card">
+
+            <h2>{{ profile.driver_name }}</h2>
+
+            <div class="profile-grid">
+
+                <div class="info-box">
+                    <div class="label">Driver ID</div>
+                    <div class="value">
+                        {{ profile.driver_id }}
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <div class="label">City</div>
+                    <div class="value">
+                        {{ profile.city }}
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <div class="label">Vehicle Type</div>
+                    <div class="value">
+                        {{ profile.vehicle_type }}
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <div class="label">Rating</div>
+                    <div class="value">
+                        {{ profile.rating }}
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <div class="label">Status</div>
+                    <div class="value">
+                        {{ profile.status }}
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="metrics">
+
+            <div class="metric-card">
+                <div class="metric-title">
+                    Total Trips
+                </div>
+                <div class="metric-value">
+                    {{ profile.total_trips }}
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-title">
+                    Completed Trips
+                </div>
+                <div class="metric-value">
+                    {{ profile.completed_trips }}
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-title">
+                    Cancelled Trips
+                </div>
+                <div class="metric-value">
+                    {{ profile.cancelled_trips }}
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-title">
+                    Completion Rate
+                </div>
+                <div class="metric-value">
+                    {{ "%.2f"|format(profile.completion_rate) }}%
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-title">
+                    Cancellation Rate
+                </div>
+                <div class="metric-value">
+                    {{ "%.2f"|format(profile.cancellation_rate) }}%
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-title">
+                    Total Revenue
+                </div>
+                <div class="metric-value">
+                    ₹{{ "%.2f"|format(profile.total_revenue) }}
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-title">
+                    Average Fare
+                </div>
+                <div class="metric-value">
+                    ₹{{ "%.2f"|format(profile.average_fare) }}
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-title">
+                    Average Distance
+                </div>
+                <div class="metric-value">
+                    {{ "%.2f"|format(profile.average_distance) }} km
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-title">
+                    Fare per KM
+                </div>
+                <div class="metric-value">
+                    ₹{{ "%.2f"|format(profile.fare_per_km) }}
+                </div>
+            </div>
+
+        </div>
+
+        {% else %}
+
+        <div class="error">
+            {{ error }}
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</body>
+</html>
