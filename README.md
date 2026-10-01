@@ -1,499 +1,697 @@
 # Mobility Operations Intelligence
 
-A Flask-based analytics application for analyzing mobility operations data across **drivers, trips, zones, cancellations, utilization, demand, and anomalies**.
+A Flask-based mobility analytics application that analyzes driver, trip, activity, demand, zone, cancellation, and anomaly data to generate operational insights.
 
-The application allows an operations user to upload mobility datasets, validate the data, and interactively explore operational performance through different analytics categories.
-
----
-
-## Project Overview
-
-**Mobility Operations Intelligence** is designed to help mobility operations teams understand operational performance and identify potential issues in mobility data.
-
-The application provides analytics for:
-
-* Driver performance
-* Trip performance
-* Zone-level demand
-* Cancellation patterns
-* Driver utilization
-* Operational anomalies
-* Top drivers, zones, and riders
-* Demand patterns across time slots
-
-The project follows an **object-oriented Python architecture**, with separate modules for data loading, validation, analytics, ranking, anomaly detection, utilization analysis, and demand analysis.
+The application is designed to demonstrate how structured mobility data can be processed using Python, object-oriented programming, data structures, searching, ranking, and analytical algorithms.
 
 ---
 
-## Key Features
+## 1. Problem Statement
 
-### 1. Data Upload
+Mobility platforms generate large amounts of operational data from drivers, trips, rider requests, driver activity, zones, and cancellations.
 
-The application accepts three CSV datasets:
+Raw data alone does not provide an operational view of the business. Operations teams need to understand:
 
-* **Drivers CSV**
-* **Trips CSV**
-* **Driver Activity CSV**
+* How many drivers and trips are being handled
+* Which drivers are completing the most trips
+* Which drivers generate the most revenue
+* How efficiently drivers are utilized
+* Which zones have high demand
+* Which zones experience high cancellations
+* When demand is highest
+* Which trip or driver patterns may indicate anomalies
+* What operational actions can be considered based on the observed patterns
 
-The uploaded data is loaded and validated before the analytics are displayed.
-
----
-
-### 2. Data Validation
-
-The application validates the uploaded data and identifies issues such as:
-
-* Missing driver information
-* Invalid driver ratings
-* Unknown driver IDs
-* Negative fares
-* Negative distances
-* Missing pickup/drop timestamps
-* Invalid timestamps
-* Drop time occurring before pickup time
-
-Validation errors are displayed to the user so that data quality issues can be identified before analysis.
+The **Mobility Operations Intelligence** application processes these datasets and converts them into operational metrics and insights through a Flask-based analytics dashboard.
 
 ---
 
-### 3. Dashboard KPIs
+# 2. Setup Instructions
 
-The dashboard provides an overview of the mobility operation through key performance indicators:
+## Prerequisites
 
-* Total drivers
-* Active drivers
-* Total riders
-* Total trips
-* Completed trips
-* Cancelled trips
-* Completion rate
-* Cancellation rate
-* Total revenue
-* Average fare
-* Average trip distance
-* Average trip duration
+* Python 3.x
+* Git
+* Flask
 
----
-
-## Driver Analytics
-
-The application provides detailed driver-level analytics, including:
-
-* Driver profile
-* Total trips
-* Completed trips
-* Cancelled trips
-* Completion rate
-* Cancellation rate
-* Total revenue
-* Average fare
-* Average distance
-* Fare per kilometer
-* Top drivers by completed trips
-* Top drivers by revenue
-* Driver utilization
-
-Users can select a driver from the analytics results to view the driver's detailed profile.
-
----
-
-## Trip Analytics
-
-Trip-level analysis includes:
-
-* Overall trip performance
-* Top riders by trip count
-* Cancellation intelligence
-* Cancellation by reason
-* Cancellation by zone
-* Cancellation by driver
-* Cancellation by time
-* Trip anomaly detection
-
----
-
-## Zone Analytics
-
-Zone-level analytics include:
-
-* Total trips by zone
-* Completed trips
-* Cancelled trips
-* Completion rate
-* Cancellation rate
-* Revenue
-* Average fare
-* Top zones by demand
-* Top zones by cancellation
-* Demand by time slot
-* Zone demand by time
-
----
-
-## Top-K Analysis
-
-The project uses Python's `heapq` data structure to perform Top-K analysis.
-
-The application supports:
-
-* Top drivers by completed trips
-* Top drivers by revenue
-* Top zones by demand
-* Top zones by cancellation
-* Top riders by trip count
-
-Using a heap allows the application to efficiently maintain the required Top-K results.
-
----
-
-## Driver Utilization
-
-Driver activity data is used to calculate:
-
-* Online hours
-* Busy hours
-* Idle hours
-* Driver utilization
-
-Utilization is calculated based on the driver's activity states over time.
-
----
-
-## Anomaly Detection
-
-The application identifies potential data and operational anomalies such as:
-
-* Zero-distance trips
-* Negative-fare trips
-* Invalid-duration trips
-* Trips with unknown drivers
-* Extremely long trips
-
-These anomalies can help operations teams identify data-quality problems or trips requiring further investigation.
-
----
-
-## Application Flow
-
-```text
-┌─────────────────────┐
-│    Upload Dataset   │
-└──────────┬──────────┘
-           ↓
-┌─────────────────────┐
-│   Data Validation   │
-└──────────┬──────────┘
-           ↓
-┌─────────────────────┐
-│      Dashboard      │
-└──────────┬──────────┘
-           ↓
-┌─────────────────────┐
-│   Select Analysis   │
-└──────────┬──────────┘
-           ↓
-┌────────────────────────────────┐
-│ Driver / Trip / Zone Analytics │
-└──────────┬─────────────────────┘
-           ↓
-┌─────────────────────┐
-│   Detailed Results  │
-└─────────────────────┘
-```
-
----
-
-## Project Structure
-
-```text
-mobility-operations-intelligence/
-│
-├── app.py
-├── requirements.txt
-├── README.md
-├── .gitignore
-│
-├── data/
-│   ├── test_activity.csv
-│   ├── test_bad_trips.csv
-│   ├── test_drivers.csv
-│   └── test_trips.csv
-│
-├── models/
-│   ├── activity.py
-│   ├── driver.py
-│   └── trip.py
-│
-├── services/
-│   ├── anomaly_detector.py
-│   ├── data_loader.py
-│   ├── demand_analyzer.py
-│   ├── driver_analyzer.py
-│   ├── insights_engine.py
-│   ├── ranking_service.py
-│   ├── trip_analyzer.py
-│   ├── utilization_analyzer.py
-│   ├── validator.py
-│   └── zone_analyzer.py
-│
-└── templates/
-    ├── dashboard.html
-    ├── driver.html
-    └── index.html
-```
-
----
-
-## Technologies Used
-
-* **Python**
-* **Flask**
-* **HTML**
-* **CSS**
-* **Jinja2**
-* **Object-Oriented Programming**
-* **Python Data Structures**
-* **`heapq`**
-* **CSV Processing**
-
-The project primarily uses Python's standard library for data processing and analytics.
-
----
-
-## Dataset Format
-
-The application expects three CSV files.
-
-### Drivers.csv
-
-Required columns:
-
-| Column         | Description              |
-| -------------- | ------------------------ |
-| `driver_id`    | Unique driver identifier |
-| `driver_name`  | Driver name              |
-| `city`         | Driver's city            |
-| `vehicle_type` | Type of vehicle          |
-| `rating`       | Driver rating            |
-| `status`       | Driver status            |
-
-Example:
-
-```csv
-driver_id,driver_name,city,vehicle_type,rating,status
-D001,Rahul,Bangalore,Sedan,4.7,active
-D002,Priya,Mumbai,SUV,4.2,inactive
-```
-
----
-
-### Trips.csv
-
-Required columns:
-
-| Column                | Description                     |
-| --------------------- | ------------------------------- |
-| `trip_id`             | Unique trip identifier          |
-| `driver_id`           | Driver associated with the trip |
-| `rider_id`            | Rider associated with the trip  |
-| `city`                | Trip city                       |
-| `pickup_zone`         | Pickup zone                     |
-| `drop_zone`           | Drop zone                       |
-| `request_time`        | Trip request timestamp          |
-| `pickup_time`         | Pickup timestamp                |
-| `drop_time`           | Drop timestamp                  |
-| `distance_km`         | Trip distance                   |
-| `fare`                | Trip fare                       |
-| `status`              | Trip status                     |
-| `cancellation_reason` | Reason for cancellation         |
-
-Example:
-
-```csv
-trip_id,driver_id,rider_id,city,pickup_zone,drop_zone,request_time,pickup_time,drop_time,distance_km,fare,status,cancellation_reason
-T001,D001,R001,Bangalore,Indiranagar,Whitefield,2023-10-01T09:00:00,2023-10-01T09:10:00,2023-10-01T09:40:00,12.5,350,completed,
-```
-
----
-
-### Driver_activity.csv
-
-Required columns:
-
-| Column      | Description            |
-| ----------- | ---------------------- |
-| `driver_id` | Driver identifier      |
-| `timestamp` | Activity timestamp     |
-| `status`    | Driver activity status |
-
-Example:
-
-```csv
-driver_id,timestamp,status
-D001,2023-10-01T09:00:00,online
-D001,2023-10-01T10:00:00,busy
-D001,2023-10-01T11:00:00,idle
-```
-
----
-
-## Installation
-
-### 1. Clone the Repository
+## Clone the Repository
 
 ```bash
 git clone https://github.com/neha01-acharya/mobility-operations-intelligence.git
-```
-
-### 2. Navigate to the Project
-
-```bash
 cd mobility-operations-intelligence
 ```
 
-### 3. Create a Virtual Environment
+## Install Dependencies
 
-```bash
-python -m venv venv
-```
-
-### 4. Activate the Virtual Environment
-
-#### Linux / macOS
-
-```bash
-source venv/bin/activate
-```
-
-#### Windows
-
-```bash
-venv\Scripts\activate
-```
-
-### 5. Install Dependencies
+If a `requirements.txt` file is available:
 
 ```bash
 pip install -r requirements.txt
 ```
 
----
+Otherwise, install Flask:
 
-## Running the Application
+```bash
+pip install flask
+```
 
-Start the Flask application:
+## Run the Application
 
 ```bash
 python app.py
 ```
 
-The application will be available at:
+The Flask application will start locally.
 
-```text
-http://127.0.0.1:5000
-```
-
-Open the URL in a browser to access the application.
+Open the application in a browser using the local Flask URL shown in the terminal.
 
 ---
 
-## Using the Application
+# 3. Application Flow
+
+The application follows the following flow:
+
+```text
+CSV Dataset Upload
+        |
+        v
+     DataLoader
+        |
+        v
+   Data Validation
+        |
+        v
++-----------------------------+
+|       Analytics Layer       |
++-----------------------------+
+| Demand Analyzer             |
+| Trip Analyzer               |
+| Zone Analyzer               |
+| Driver Analyzer             |
+| Utilization Analyzer        |
+| Ranking Service             |
+| Anomaly Detector            |
+| Search Engine               |
++-----------------------------+
+        |
+        v
+   Insights Engine
+        |
+        v
+   Flask Dashboard
+        |
+        v
+Operational Insights
+```
 
 ### Step 1 — Upload Data
 
-Upload:
+The user uploads:
 
-1. Drivers CSV
-2. Trips CSV
-3. Driver Activity CSV
+* Drivers CSV
+* Trips CSV
+* Driver Activity CSV
 
-### Step 2 — Validate Data
+### Step 2 — Load Data
 
-The application validates the uploaded data and displays any detected issues.
+`DataLoader` reads the CSV files and converts each row into the corresponding Python model object.
 
-### Step 3 — View Dashboard
+### Step 3 — Validate Data
 
-The dashboard displays high-level operational KPIs.
+The validation layer checks whether the uploaded data satisfies the expected structure and conditions.
 
-### Step 4 — Select an Analysis
+### Step 4 — Analyze Data
 
-Users can choose from:
+Different analytical services process the loaded data.
 
-* Driver Analytics
-* Trip Analytics
-* Zone Analytics
+Examples:
 
-### Step 5 — Explore Results
+* Trip performance
+* Driver rankings
+* Driver utilization
+* Zone performance
+* Demand by time slot
+* Cancellation analysis
+* Anomaly detection
 
-The selected analysis displays the corresponding operational metrics and Top-K results.
+### Step 5 — Generate Insights
 
-### Step 6 — View Driver Profile
+The `InsightsEngine` combines analytical outputs and generates operational observations.
 
-From driver-related results, users can select a driver ID to view detailed driver-level performance.
+### Step 6 — Display Results
+
+The Flask application renders the results through the dashboard.
+
+Users can also search for:
+
+* Driver
+* Trip
+* Zone
 
 ---
 
-## Sample Data
+# 4. Architecture
 
-Sample datasets are included in the `data/` directory:
+The project follows a modular, service-oriented architecture.
 
 ```text
-data/
-├── test_activity.csv
-├── test_bad_trips.csv
-├── test_drivers.csv
-└── test_trips.csv
+mobility-operations-intelligence/
+│
+├── models/
+│   ├── driver.py
+│   ├── trip.py
+│   ├── activity.py
+│   └── zone.py
+│
+├── services/
+│   ├── data_loader.py
+│   ├── validator.py
+│   ├── search_engine.py
+│   ├── demand_analyzer.py
+│   ├── trip_analyzer.py
+│   ├── driver_analyzer.py
+│   ├── zone_analyzer.py
+│   ├── utilization_analyzer.py
+│   ├── ranking_service.py
+│   ├── anomaly_detector.py
+│   └── insights_engine.py
+│
+├── templates/
+│   ├── index.html
+│   ├── dashboard.html
+│   ├── driver.html
+│   └── search.html
+│
+├── data/
+│
+├── app.py
+└── README.md
 ```
 
-The `test_bad_trips.csv` dataset can be used to test the application's validation functionality.
+## Architectural Layers
 
-Uploaded datasets generated while using the application are excluded from Git through `.gitignore`.
+### Presentation Layer
+
+Implemented using Flask routes and HTML templates.
+
+Responsible for:
+
+* File uploads
+* Dashboard rendering
+* Search interface
+* Driver profiles
+
+### Model Layer
+
+Contains domain classes representing:
+
+* Drivers
+* Trips
+* Driver activities
+* Zones
+
+### Service Layer
+
+Contains the application's business logic and analytics.
+
+Each service is responsible for a specific analytical area instead of placing all logic inside the Flask routes.
 
 ---
 
-## Validation Examples
+# 5. Classes
 
-The application can identify issues such as:
+## Driver
+
+Represents a driver in the mobility system.
+
+Typical attributes include:
+
+* `driver_id`
+* `driver_name`
+* `city`
+* `vehicle_type`
+* `rating`
+* `status`
+
+---
+
+## Trip
+
+Represents a mobility trip.
+
+Typical attributes include:
+
+* `trip_id`
+* `driver_id`
+* `rider_id`
+* `city`
+* `pickup_zone`
+* `drop_zone`
+* `request_time`
+* `pickup_time`
+* `drop_time`
+* `distance_km`
+* `fare`
+* `status`
+* `cancellation_reason`
+
+The class also provides helper methods for determining trip status, such as completed and cancelled trips.
+
+---
+
+## DriverActivity
+
+Represents the activity state of a driver at a particular timestamp.
+
+Examples of activity states include:
+
+* Online
+* Busy
+* Idle
+
+This information is used to calculate driver utilization.
+
+---
+
+## Zone
+
+Represents a geographical operating zone.
+
+The zone information can be used to analyze:
+
+* Demand
+* Trip volume
+* Cancellations
+* Operational performance
+
+---
+
+## DataLoader
+
+Responsible for reading CSV files and converting records into model objects.
+
+Main methods include:
 
 ```text
-Negative fare in trip T00006
-Unknown driver_id D9999 in trip T00026
-Drop time is before pickup time in trip T00046
+load_drivers()
+load_trips()
+load_activity()
 ```
 
-These validation issues are displayed to the operations user rather than being silently ignored.
+---
+
+## DataValidator
+
+Responsible for validating uploaded mobility datasets and checking expected data conditions.
 
 ---
 
-## Objective
+## SearchEngine
 
-The objective of this project is to provide an interactive operations analytics tool that converts raw mobility data into useful operational metrics and insights.
+Provides indexed searching for:
 
-The project demonstrates practical application of:
+* Drivers
+* Trips
+* Zones
 
-* Python Object-Oriented Programming
-* Data processing
-* Data validation
-* Analytical problem solving
-* Data structures and algorithms
-* Top-K analysis
-* Operational analytics
-* Flask application development
+The search engine creates dictionaries for fast lookup instead of repeatedly scanning the complete dataset.
 
 ---
 
-## Future Enhancements
+## DemandAnalyzer
 
-Potential future enhancements include:
+Analyzes trip demand patterns.
 
-* Interactive charts and visualizations
-* Additional driver performance metrics
-* Advanced utilization thresholds
-* More sophisticated anomaly detection
-* Search functionality using indexed data
-* Expanded operational insights
-* Additional filtering by city, zone, and time period
+Examples:
+
+* Demand by time slot
+* Zone-level demand
+* Time-based demand patterns
 
 ---
 
+## TripAnalyzer
 
+Analyzes trip-level operational metrics.
+
+Examples:
+
+* Trip performance
+* Top riders
+* Cancellation by reason
+* Cancellation by zone
+* Cancellation by driver
+* Cancellation by time
+
+---
+
+## DriverAnalyzer
+
+Analyzes driver-related operational metrics and performance.
+
+---
+
+## ZoneAnalyzer
+
+Analyzes zone-level performance.
+
+Examples:
+
+* Zone demand
+* Zone performance
+* Zone cancellation patterns
+
+---
+
+## UtilizationAnalyzer
+
+Uses driver activity records to calculate:
+
+* Online hours
+* Busy hours
+* Idle hours
+* Utilization percentage
+
+Utilization is calculated based on the proportion of active time spent in the busy state.
+
+```text
+Utilization =
+Busy Hours / Total Active Hours × 100
+```
+
+---
+
+## RankingService
+
+Ranks drivers or other entities based on operational metrics.
+
+Examples:
+
+* Completed trips
+* Revenue
+
+---
+
+## AnomalyDetector
+
+Identifies potentially unusual operational patterns from the available trip and driver data.
+
+---
+
+## InsightsEngine
+
+Combines outputs from multiple analytical services and converts them into higher-level operational insights.
+
+---
+
+# 6. DSA Concepts Used
+
+The project applies multiple Data Structures and Algorithms concepts.
+
+## Dictionaries / Hash Maps
+
+Dictionaries are used for fast entity lookup.
+
+For example:
+
+```python
+driver_index[driver_id] = driver
+```
+
+This allows a driver to be retrieved directly using the driver ID.
+
+Average lookup complexity:
+
+```text
+O(1)
+```
+
+---
+
+## Lists
+
+Lists are used extensively to store:
+
+* Drivers
+* Trips
+* Activities
+* Analysis results
+
+They also support sequential processing of datasets.
+
+---
+
+## defaultdict
+
+`defaultdict` is used to group driver activity records.
+
+For example:
+
+```python
+grouped[activity.driver_id].append(activity)
+```
+
+This simplifies grouping records by driver.
+
+---
+
+## Sorting
+
+Activity records are sorted by timestamp before calculating the duration between consecutive activity states.
+
+```python
+activities.sort(
+    key=lambda activity: activity.get_datetime()
+)
+```
+
+---
+
+## Grouping
+
+The project groups data by different dimensions such as:
+
+* Driver
+* Zone
+* Time
+* Cancellation reason
+* Rider
+
+This enables aggregation-based analytics.
+
+---
+
+## Searching
+
+The `SearchEngine` uses indexes for direct lookup of drivers, trips, and zones.
+
+This avoids repeatedly scanning the entire dataset.
+
+---
+
+## Ranking
+
+Driver and zone results can be ordered according to metrics such as:
+
+* Completed trips
+* Revenue
+* Demand
+* Cancellation
+
+---
+
+## Sequential / Time-Series Processing
+
+Driver activity records are processed chronologically.
+
+The duration between two consecutive activity records is calculated as:
+
+```text
+next timestamp - current timestamp
+```
+
+The duration is then assigned to the corresponding activity state.
+
+---
+
+# 7. Complexity
+
+Let:
+
+* `D` = number of drivers
+* `T` = number of trips
+* `A` = number of activity records
+* `Z` = number of zones
+
+## Data Loading
+
+Drivers:
+
+```text
+O(D)
+```
+
+Trips:
+
+```text
+O(T)
+```
+
+Activities:
+
+```text
+O(A)
+```
+
+Overall data loading:
+
+```text
+O(D + T + A)
+```
+
+---
+
+## Search
+
+Dictionary-based driver, trip, and zone lookup:
+
+```text
+Average: O(1)
+```
+
+---
+
+## Activity Grouping
+
+Grouping activities by driver:
+
+```text
+O(A)
+```
+
+Sorting activities for each driver results in approximately:
+
+```text
+O(A log A)
+```
+
+in the worst case.
+
+---
+
+## Trip Analysis
+
+Most aggregation operations require a scan through the trips:
+
+```text
+O(T)
+```
+
+---
+
+## Ranking
+
+If results containing `N` entities are sorted:
+
+```text
+O(N log N)
+```
+
+---
+
+## Space Complexity
+
+The application stores loaded datasets and indexes in memory.
+
+Approximate space requirement:
+
+```text
+O(D + T + A + Z)
+```
+
+---
+
+# 8. Assumptions
+
+The application makes the following assumptions:
+
+1. Uploaded files follow the expected CSV structure.
+2. Driver IDs uniquely identify drivers.
+3. Trip IDs uniquely identify trips.
+4. Activity records contain valid driver IDs.
+5. Timestamp values are parseable as datetime values.
+6. Fare and distance values are numeric.
+7. Trip status values follow the expected status conventions.
+8. Activity records are sufficiently complete to estimate driver state durations.
+9. The activity state at a timestamp remains valid until the next activity record for that driver.
+10. Driver utilization is calculated from the available activity records rather than from a real-time driver tracking system.
+11. Cancellation rate is calculated as:
+
+```text
+Cancelled Trips / Total Trips × 100
+```
+
+12. Historical data is treated as representative of the period being analyzed.
+13. The dashboard is intended for operational analysis and not as a real-time dispatch system.
+
+---
+
+# 9. Known Limitations
+
+### 1. Batch Processing
+
+The application analyzes uploaded CSV files and does not process live mobility events.
+
+### 2. No Real-Time Driver Tracking
+
+Driver status and utilization are calculated from historical activity records.
+
+### 3. Activity Data Dependency
+
+Utilization accuracy depends on the completeness and correctness of driver activity timestamps.
+
+### 4. Limited Geographic Analysis
+
+The project uses zone information from the dataset and does not integrate external mapping or geospatial services.
+
+### 5. No Predictive Demand Model
+
+The current application focuses primarily on descriptive and diagnostic analytics rather than forecasting future demand.
+
+### 6. No Persistent Database
+
+Data is loaded from CSV files rather than stored in a production database.
+
+### 7. Dataset-Dependent Insights
+
+The quality of generated insights depends on the quality, volume, and coverage of the uploaded data.
+
+### 8. Basic Anomaly Detection
+
+Anomaly detection is based on implemented analytical rules and does not represent a production-grade machine-learning anomaly detection system.
+
+### 9. Single-Application Deployment
+
+The current Flask application is designed as an analytics project and is not optimized for large-scale production traffic.
+
+---
+
+# 10. Conclusion
+
+Mobility Operations Intelligence provides a modular framework for analyzing mobility operations data.
+
+The application demonstrates the use of:
+
+* Python
+* Flask
+* Object-oriented programming
+* Data structures
+* Searching
+* Sorting
+* Aggregation
+* Time-series analysis
+* Ranking
+* Anomaly detection
+* Operational insight generation
+
+The project converts raw driver, trip, activity, and zone data into metrics that can support operational analysis and decision-making.
